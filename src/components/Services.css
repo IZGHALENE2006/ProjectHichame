@@ -222,9 +222,8 @@
   background: var(--color-blue);
 }
 
-.service-choice__arrow svg {
-  width: 17px;
-  height: 17px;
+.service-choice__arrow .service-icon {
+  --icon-size: 17px;
 }
 
 .electrical-page {
@@ -304,7 +303,7 @@
   background: rgb(141 200 255 / 9%);
 }
 
-.electrical-domain > svg {
+.electrical-domain > .service-icon {
   color: #8dc8ff;
 }
 
@@ -315,7 +314,7 @@
   letter-spacing: -0.03em;
 }
 
-.electrical-domain > span:not(.electrical-domain__link) {
+.electrical-domain > span:not(.electrical-domain__link, .service-icon) {
   color: #c1d0e0;
   font-size: 11px;
   line-height: 1.6;
@@ -335,9 +334,8 @@
   font-weight: 500;
 }
 
-.electrical-domain__link svg {
-  width: 16px;
-  height: 16px;
+.electrical-domain__link .service-icon {
+  --icon-size: 16px;
 }
 
 .electrical-navigation {
@@ -483,13 +481,11 @@
   line-height: 1.7;
 }
 
-.electrical-study__list svg {
-  width: 17px;
-  height: 17px;
+.electrical-study__list .service-icon {
+  --icon-size: 17px;
   flex-shrink: 0;
   margin-top: 3px;
   color: var(--color-blue);
-  stroke-width: 2;
 }
 
 .electrical-study--reverse .electrical-study__visual {
@@ -618,9 +614,8 @@
   text-decoration: none;
 }
 
-.services-back-link svg {
-  width: 18px;
-  height: 18px;
+.services-back-link .service-icon {
+  --icon-size: 18px;
 }
 
 .services-back-link:hover {

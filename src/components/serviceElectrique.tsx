@@ -59,13 +59,7 @@ function ServiceElectrique() {
     <div className="electrical-page">
       <header className="electrical-hero">
         <div className="services-container">
-          <nav className="services-breadcrumb services-breadcrumb--dark" aria-label="Fil d’Ariane">
-            <Link to="/">Accueil</Link>
-            <span aria-hidden="true">/</span>
-            <Link to="/services">Nos services</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page">Génie électrique</span>
-          </nav>
+  
           <div className="electrical-hero__inner">
             <div className="electrical-hero__copy">
               <p className="services-eyebrow services-eyebrow--light">Études & ingénierie électrique</p>
@@ -106,7 +100,7 @@ function ServiceElectrique() {
       <div className="services-container electrical-studies">
         <section id="courant-fort" className="electrical-study" aria-labelledby="cfo-title">
           <figure className="electrical-study__visual">
-            <img src="/CourantFort.jpeg" alt="Étude de courant fort : tableau électrique, schéma unifilaire, distribution et calcul d’éclairage" width="1536" height="1024" />
+            <img src="/CourantFort.webp" alt="Étude de courant fort : tableau électrique, schéma unifilaire, distribution et calcul d’éclairage" width="1536" height="1024" />
             <figcaption>
               <div><strong>Puissance & distribution</strong><span>Des installations pensées dans leur ensemble.</span></div>
               <span className="electrical-study__code">CFO</span>
@@ -126,7 +120,7 @@ function ServiceElectrique() {
 
         <section id="courant-faible" className="electrical-study electrical-study--reverse" aria-labelledby="cfa-title">
           <figure className="electrical-study__visual">
-            <img src="/Courant%20Faible%20.jpeg" alt="Étude de courant faible : réseaux informatiques, communication, vidéosurveillance, contrôle d’accès et sécurité incendie" width="1536" height="1024" loading="lazy" />
+            <img src="/Courant%20Faible%20.webp" alt="Étude de courant faible : réseaux informatiques, communication, vidéosurveillance, contrôle d’accès et sécurité incendie" width="1536" height="1024" loading="lazy" />
             <figcaption>
               <span className="service-symbol"><ServiceIcon name="network" /></span>
               <div><strong>Communication & sécurité</strong><span>Des réseaux connectés aux besoins du bâtiment.</span></div>

@@ -1,0 +1,39 @@
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400;
+  font-display: block;
+  src: url('../assets/fonts/material-symbols-outlined.woff2') format('woff2');
+}
+
+.service-icon {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  flex-shrink: 0;
+  font-size: var(--icon-size, 24px);
+  vertical-align: middle;
+}
+
+.material-symbols-outlined {
+  overflow: hidden;
+  font-family: 'Material Symbols Outlined';
+  font-weight: 400;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+}
+
+/* WhatsApp logo from Bootstrap Icons (MIT), license included with the asset. */
+.service-icon--whatsapp {
+  background-color: currentColor;
+  -webkit-mask: url('../assets/icons/whatsapp.svg') center / contain no-repeat;
+  mask: url('../assets/icons/whatsapp.svg') center / contain no-repeat;
+}

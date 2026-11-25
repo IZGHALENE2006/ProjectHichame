@@ -6,15 +6,11 @@ function NousServices() {
   return (
     <section className="services-page" aria-labelledby="services-title">
       <div className="services-container">
-        <nav className="services-breadcrumb" aria-label="Fil d’Ariane">
-          <Link to="/">Accueil</Link>
-          <span aria-hidden="true">/</span>
-          <span aria-current="page">Nos services</span>
-        </nav>
+
 
         <header className="services-intro">
           <p className="services-eyebrow">Nos domaines d’expertise</p>
-          <h1 id="services-title">Deux expertises.<br /><span>Une même exigence.</span></h1>
+          <h1 id="services-title">Deux expertises <span>Une même exigence.</span></h1>
           <p>
             Du génie civil au génie électrique, nous concevons des solutions
             techniques adaptées à la nature et aux ambitions de votre projet.
@@ -48,7 +44,7 @@ function NousServices() {
 
           <Link className="service-choice service-choice--link" to="/services/electrique" aria-label="Découvrir le service Génie électrique">
             <div className="service-choice__image">
-              <img src="/CourantFort.jpeg" alt="Installations électriques, schémas de distribution et étude d’éclairage d’un bâtiment" width="1536" height="1024" />
+              <img src="/CourantFort.webp" alt="Installations électriques, schémas de distribution et étude d’éclairage d’un bâtiment" width="1536" height="1024" />
               <span className="service-choice__index" aria-hidden="true">02</span>
             </div>
             <div className="service-choice__body">

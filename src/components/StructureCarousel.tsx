@@ -144,7 +144,7 @@ function StructureCarousel() {
             {!reducedMotion && (
               <button
                 type="button"
-                className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md pr-3 text-xs font-medium text-slate-600 hover:text-[#10518c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#10518c] [&_svg]:size-4"
+                className="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-md pr-3 text-xs font-medium text-slate-600 hover:text-[#10518c] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#10518c] [--icon-size:16px]"
                 onClick={() => setIsPlaying((current) => !current)}
                 aria-label={isPlaying ? 'Mettre le défilement en pause' : 'Reprendre le défilement automatique'}
               >

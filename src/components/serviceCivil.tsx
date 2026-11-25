@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+﻿import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -55,13 +55,13 @@ function ServiceSection({ service }: { service: CivilService }) {
 
           <div data-civil-reveal className="min-w-0">
             <div className="mb-2 flex items-center gap-3">
-              <span className="flex size-9 items-center justify-center rounded-lg bg-[#edf4fc] text-[#10518c] [&_svg]:size-5"><ServiceIcon name={service.icon} /></span>
+              <span className="flex size-9 items-center justify-center rounded-lg bg-[#edf4fc] text-[#10518c] [--icon-size:20px]"><ServiceIcon name={service.icon} /></span>
               <h3 className="text-xl font-semibold tracking-tight text-slate-900">Nos prestations</h3>
             </div>
             <ul className="m-0 list-none divide-y divide-slate-200/80 p-0" aria-label={`Prestations : ${service.navTitle}`}>
               {service.prestations.map((item) => (
                 <li key={item.title} className="flex gap-3 py-4">
-                  <span className="mt-1 shrink-0 text-[#10518c] [&_svg]:size-4"><ServiceIcon name="check" /></span>
+                  <span className="mt-1 shrink-0 text-[#10518c] [--icon-size:16px]"><ServiceIcon name="check" /></span>
                   <div>
                     <h4 className="text-sm leading-relaxed font-semibold text-slate-800">{item.title}</h4>
                     <p className="mt-1 text-[13px] leading-[1.8] text-slate-600">{item.description}</p>
@@ -122,13 +122,7 @@ function ServiceCivil() {
     <div ref={page} className="bg-white">
       <header className="overflow-hidden bg-[#0b1828] bg-[radial-gradient(ellipse_at_top_right,#153f64,transparent_65%)] pt-6 pb-12 text-white sm:pb-16">
         <div className={containerClass}>
-          <nav aria-label="Fil d’Ariane" className="flex flex-wrap items-center gap-2 text-xs leading-relaxed text-[#adbed2] sm:gap-3">
-            <Link to="/" className="inline-flex min-h-8 items-center hover:text-white">Accueil</Link>
-            <span aria-hidden="true">/</span>
-            <Link to="/services" className="inline-flex min-h-8 items-center hover:text-white">Nos services</Link>
-            <span aria-hidden="true">/</span>
-            <span aria-current="page" className="text-white">Génie civil</span>
-          </nav>
+    
           <div className="pt-9 sm:pt-12">
             <p data-civil-intro className="mb-5 flex items-center gap-3 text-[10px] font-semibold tracking-[0.17em] text-[#9acbfa] uppercase before:h-px before:w-7 before:bg-current">Études & ingénierie du bâtiment</p>
             <h1 data-civil-intro className="text-[42px] leading-[1.1] font-semibold tracking-[-0.045em] sm:text-6xl">Génie <span className="text-[#8dc8ff]">civil.</span></h1>
@@ -151,8 +145,8 @@ function ServiceCivil() {
             <p className="mt-2 max-w-lg text-sm leading-relaxed text-[#b9c9db]">Découvrez également nos études en courant fort et courant faible.</p>
           </div>
           <div className="flex flex-wrap items-center gap-x-6 gap-y-4">
-            <Link to="/services" className="inline-flex min-h-11 items-center gap-2 text-xs text-[#b9c9db] hover:text-white [&_svg]:size-4"><ServiceIcon name="arrow-left" /> Nos services</Link>
-            <Link to="/services/electrique" className="inline-flex min-h-12 items-center gap-4 rounded-md border border-[#456584] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#183956] [&_svg]:size-4">Génie électrique <ServiceIcon name="arrow-right" /></Link>
+            <Link to="/services" className="inline-flex min-h-11 items-center gap-2 text-xs text-[#b9c9db] hover:text-white [--icon-size:16px]"><ServiceIcon name="arrow-left" /> Nos services</Link>
+            <Link to="/services/electrique" className="inline-flex min-h-12 items-center gap-4 rounded-md border border-[#456584] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#183956] [--icon-size:16px]">Génie électrique <ServiceIcon name="arrow-right" /></Link>
           </div>
         </div>
       </footer>

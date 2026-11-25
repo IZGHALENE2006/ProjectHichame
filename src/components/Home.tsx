@@ -1,52 +1,11 @@
 ﻿import './Home.css'
 
-const iconPaths = {
-  drafting: (
-    <>
-      <circle cx="12" cy="5" r="2" />
-      <path d="m10.5 6.5-6 14m9-14 6 14M12 1v2M5 15a11 11 0 0 0 14 0M12 12v3" />
-    </>
-  ),
-  building: (
-    <>
-      <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18M6 12H4a2 2 0 0 0-2 2v8h20V10a2 2 0 0 0-2-2h-2M10 22v-4h4v4" />
-      <path d="M10 6h4m-4 4h4m-4 4h4" />
-    </>
-  ),
-  users: (
-    <>
-      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2m20 0v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-      <circle cx="9" cy="7" r="4" />
-    </>
-  ),
-  shield: (
-    <>
-      <path d="M12 22s8-4 8-11V5l-8-3-8 3v6c0 7 8 11 8 11Z" />
-      <path d="m9 12 2 2 4-4" />
-    </>
-  ),
-  check: <path d="m5 12 4 4L19 6" />,
-  arrow: <path d="M12 4v16m-6-6 6 6 6-6" />,
-}
+import { useLayoutEffect, useRef } from 'react'
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import ServiceIcon from './ServiceIcon'
 
-function HomeIcon({ name }: { name: keyof typeof iconPaths }) {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.6"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-      focusable="false"
-    >
-      {iconPaths[name]}
-    </svg>
-  )
-}
+gsap.registerPlugin(ScrollTrigger)
 
 const cards = [
   {
@@ -90,9 +49,86 @@ const cards = [
 ] as const
 
 function Home() {
+  const cardGrid = useRef<HTMLDivElement>(null)
+  const hero = useRef<HTMLElement>(null)
+  const specialtyText = useRef<HTMLSpanElement>(null)
+
+  useLayoutEffect(() => {
+    const section = hero.current
+    const text = specialtyText.current
+    if (!section || !text) return
+
+    const media = gsap.matchMedia()
+    media.add('(prefers-reduced-motion: no-preference)', () => {
+      gsap.from('.home-hero__accent', {
+        yPercent: 105, opacity: 0, duration: 0.9, delay: 0.2,
+        ease: 'power3.out', clearProps: 'opacity,transform',
+      })
+
+      const typing = gsap.timeline({ repeat: -1, repeatDelay: 0.3 })
+      for (const word of ['Génie civil', 'Génie électrique']) {
+        const progress = { letters: 0 }
+        const write = () => { text.textContent = word.slice(0, Math.round(progress.letters)) }
+        typing.fromTo(progress, { letters: 0 }, {
+          letters: word.length, duration: word.length * 0.09,
+          ease: 'none', onUpdate: write,
+        }, '+=0.3')
+        typing.to(progress, {
+          letters: 0, duration: word.length * 0.045,
+          ease: 'none', onUpdate: write,
+        }, '+=2')
+      }
+
+      let inView = true
+      const updatePlayback = () => {
+        const paused = document.hidden || !inView
+        typing.paused(paused)
+        section.dataset.motionPaused = String(paused)
+      }
+      const observer = new IntersectionObserver(([entry]) => {
+        inView = entry.isIntersecting
+        updatePlayback()
+      })
+      observer.observe(section)
+      document.addEventListener('visibilitychange', updatePlayback)
+      updatePlayback()
+
+      return () => {
+        observer.disconnect()
+        document.removeEventListener('visibilitychange', updatePlayback)
+        delete section.dataset.motionPaused
+        text.textContent = 'Génie civil'
+      }
+    }, section)
+    return () => media.revert()
+  }, [])
+
+  useLayoutEffect(() => {
+    if (!cardGrid.current) return
+    const media = gsap.matchMedia()
+    media.add({
+      motion: '(prefers-reduced-motion: no-preference)',
+      desktop: '(min-width: 801px)',
+    }, (context) => {
+      if (!context.conditions?.motion) return
+      gsap.utils.toArray<HTMLElement>('.home-card-reveal', cardGrid.current).forEach((card, index) => {
+        gsap.from(card, {
+          opacity: 0,
+          y: 36,
+          duration: 0.7,
+          delay: context.conditions?.desktop ? index * 0.12 : 0,
+          ease: 'power2.out',
+          clearProps: 'opacity,transform',
+          scrollTrigger: { trigger: card, start: 'top 90%', once: true },
+        })
+      })
+    }, cardGrid)
+    return () => media.revert()
+  }, [])
+
   return (
     <>
-      <section className="home-hero" aria-labelledby="home-title">
+      <section ref={hero} className="home-hero" aria-labelledby="home-title">
         <img
           className="home-hero__photo"
           src="/photoAccueil.jpeg"
@@ -105,11 +141,18 @@ function Home() {
 
         <div className="home-container home-hero__content">
           <p className="home-eyebrow home-eyebrow--light">
-            Génie civil & génie électrique
+            <span className="sr-only">Génie civil et génie électrique</span>
+            <span aria-hidden="true" className="home-hero__specialty">
+              <span className="home-hero__specialty-animated">
+                <span ref={specialtyText}>Génie civil</span>
+                <span className="home-hero__cursor" />
+              </span>
+              <span className="home-hero__specialty-static">Génie civil & génie électrique</span>
+            </span>
           </p>
           <h1 id="home-title">
             L’ingénierie au service<br />
-            <span>de vos projets.</span>
+            <span className="home-hero__accent-mask"><span className="home-hero__accent">de vos projets.</span></span>
           </h1>
           <p className="home-hero__description">
             Conception, études, suivi et conseil.<br />
@@ -117,14 +160,14 @@ function Home() {
           </p>
           <a className="home-hero__link" href="#presentation">
             Découvrir notre bureau
-            <HomeIcon name="arrow" />
+            <ServiceIcon name="arrow-down" />
           </a>
         </div>
 
         <div className="home-accreditation">
           <div className="home-container home-accreditation__inner">
             <span className="home-accreditation__icon">
-              <HomeIcon name="shield" />
+              <ServiceIcon name="shield" />
             </span>
             <div className="home-accreditation__text">
               <p className='text-6xl'>BET AGRÉÉ PAR L'ÉTAT : D14 D15</p>
@@ -140,28 +183,30 @@ function Home() {
             <h2 id="presentation-title">Une expertise au plus près de vos projets.</h2>
           </div>
 
-          <div className="home-cards">
+          <div ref={cardGrid} className="home-cards">
             {cards.map((card, index) => (
-              <article className="home-card" key={card.title}>
-                <div className="home-card__top">
-                  <span className="home-card__icon">
-                    <HomeIcon name={card.icon} />
-                  </span>
-                  <span className="home-card__number" aria-hidden="true">
-                    0{index + 1}
-                  </span>
-                </div>
-                <h3>{card.title}</h3>
-                <p className="home-card__description">{card.description}</p>
-                <ul className="home-card__list">
-                  {card.items.map((item) => (
-                    <li key={item}>
-                      <HomeIcon name="check" />
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </article>
+              <div className="`home-card-reveal`" key={card.title}>
+                <article className="home-card">
+                  <div className="home-card__top">
+                    <span className="home-card__icon">
+                      <ServiceIcon name={card.icon} />
+                    </span>
+                    <span className="home-card__number" aria-hidden="true">
+                      0{index + 1}
+                    </span>
+                  </div>
+                  <h3>{card.title}</h3>
+                  <p className="home-card__description">{card.description}</p>
+                  <ul className="home-card__list">
+                    {card.items.map((item) => (
+                      <li key={item}>
+                        <ServiceIcon name="check" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </article>
+              </div>
             ))}
           </div>
         </div>
